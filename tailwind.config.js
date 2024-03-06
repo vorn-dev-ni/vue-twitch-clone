@@ -4,7 +4,11 @@ module.exports = {
     './src/**/*.{vue,js,ts,jsx,tsx}',
     "./node_modules/flowbite/**/*.js"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        lato:['lato']
+      }
+    },
   },
   plugins: [
     require('flowbite/plugin')

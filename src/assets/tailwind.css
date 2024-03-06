@@ -1,5 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
+
+@layer components {
+  /* width */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #FFF;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #CCC;
+    border-radius: 100vh;
+    border: 2px solid #FFF;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #AAA;
+  }
+
+  /* width */
+  .dark ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Track */
+  .dark ::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #374151;
+  }
+
+  /* Handle */
+  .dark ::-webkit-scrollbar-thumb {
+    background: #6b7280;
+    border-radius: 100vh;
+    border: 2px solid #374151;
+  }
+
+  /* Handle on hover */
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #7a8294;
+  }
+}
+
+@layer base {
+    html{
+        @apply box-border m-0 scroll-smooth
+    }
+    body {
+        @apply font-lato
+    }
+    h1 {
+        @apply text-4xl font-bold 
+    }
+    h2 {
+        @apply text-3xl font-semibold 
+    }
+    h3 {
+        @apply text-2xl font-semibold 
+    }
+    h4 {
+        @apply text-xl font-normal 
+    }
+    h5 {
+        @apply text-lg font-medium 
+    }
+    h6 {
+        @apply text-sm font-light 
+    }
+    p{
+        @apply text-lg font-normal
+    }
+}
