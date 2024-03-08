@@ -1,38 +1,46 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "@/views/HomePage.vue";
+import NotFound from "@/views/404/NotFound.vue";
 import LoginPage from "@/views/login/LoginPage.vue";
-
+import HomePage from "@/views/home/HomePage.vue";
+import UserPage from "@/views/home/user/UserPage.vue";
 const routes = [
   {
-    path: "/auth/",
-    name: "auth",
+    path: "/",
+    redirect: "/home",
+  },
+
+  {
+    path: "/home",
+    alias: "/",
+    meta: {
+      requireAuth: true,
+    },
+    component: HomePage,
     children: [
-      {
-        path: "",
-        name: "login",
-        component: LoginPage,
-      },
+      { path: ":id", component: UserPage },
+      { path: ":notFound(.*)", component: NotFound },
     ],
   },
+
   {
-    path: "/",
-    name: "newfeed",
-    component: HomePage,
-    meta: { requiresAuth: true },
-    redirect: (to) => {
-      console.log(to)
-      return "auth"
+    path: "/auth",
+    component: LoginPage,
+    meta: {
+      requireAuth: false,
     },
+    children: [{ path: "login", redirect: "/auth" }],
   },
+  { path: "/:notFound(.*)", component: NotFound },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  linkActiveClass: "active",
 });
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
   console.log(to, from);
-  // explicitly return false to cancel the navigation
-  return true;
+  next();
 });
+
 export default router;
