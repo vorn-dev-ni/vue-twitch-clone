@@ -1,14 +1,12 @@
 <template>
-  <Layout>
-    <router-view> </router-view>
-  </Layout>
+  <router-view> </router-view>
 </template>
 
 <script>
 import { FwbAlert } from "flowbite-vue";
-import Layout from "./components/ui/Layout.vue";
+
 export default {
-  components: { Layout },
+  components: {  },
   name: "App",
   FwbAlert,
 };

@@ -1,28 +1,24 @@
 <template>
-  <div
-    class="grid grid-cols-2 md:grid-cols-3 w-full justify-center bg-slate-500"
-  >
-    <side-bar />
+  <layout>
+    <div class="grid grid-cols-5  justify-center ">
+      <side-bar />
 
- 
-    <div>
-        <router-view>
-          
-        </router-view>
+      <router-view> </router-view>
+
+      <right-bar />
     </div>
-
-
-    <right-bar />
-  </div>
+  </layout>
 </template>
 <script>
 import SideBar from "@/components/ui/SideBar.vue";
 import RightBar from "@/components/ui/RightBar.vue";
+import Layout from "@/views/home/components/UI/Layout.vue";
 
 export default {
   components: {
     SideBar,
     RightBar,
+    Layout,
   },
 };
 </script>
