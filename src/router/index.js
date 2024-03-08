@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 import NotFound from "@/views/404/NotFound.vue";
 import LoginPage from "@/views/login/LoginPage.vue";
+import Home from "@/views/home/components/Home.vue";
 import HomePage from "@/views/home/HomePage.vue";
 import UserPage from "@/views/home/user/UserPage.vue";
 const routes = [
   {
     path: "/",
     redirect: "/home",
+    
   },
 
   {
@@ -16,7 +18,9 @@ const routes = [
       requireAuth: true,
     },
     component: HomePage,
+    redirect:"",
     children: [
+      { path: "", component: Home },
       { path: ":id", component: UserPage },
       { path: ":notFound(.*)", component: NotFound },
     ],
