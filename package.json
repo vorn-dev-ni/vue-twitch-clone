@@ -10,7 +10,9 @@
   "dependencies": {
     "autoprefixer": "^10",
     "core-js": "^3.8.3",
+    "emotion": "^10.0.27",
     "flowbite": "^2.3.0",
+    "flowbite-vue": "^0.1.3",
     "pinia": "^2.1.7",
     "postcss": "^8",
     "tailwindcss": "^3",
@@ -20,11 +22,14 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@iconify/vue": "^4.1.1",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "chakra-loader": "^1.0.2",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "vue-cli-plugin-chakra-ui": "~1.0.3",
     "vue-cli-plugin-tailwind": "~3.0.0"
   },
   "eslintConfig": {
