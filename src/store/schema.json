@@ -1,0 +1,9 @@
+{
+   "user":{
+    "id":1,
+    "username":"name",
+    "email":"email",
+    "dob":"",
+    "password":" "
+   }
+}

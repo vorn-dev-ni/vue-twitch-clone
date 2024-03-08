@@ -10,24 +10,18 @@
       <div class="col-span-2 md:col-span-2 lg:col-span-2 !space-y-7">
         <Login />
       </div>
-
-      <div>
-        <Modal />
-      </div>
     </div>
   </layout>
 </template>
 <script>
 import IconX from "./components/IconX.vue";
 import Login from "./components/Login.vue";
-import Modal from "./components/Modal.vue";
 import Layout from "@/components/ui/Layout.vue";
 export default {
   components: {
-    Modal,
     IconX,
     Login,
-    Layout
+    Layout,
   },
 };
 </script>

@@ -4,11 +4,14 @@ import LoginPage from "@/views/login/LoginPage.vue";
 import Home from "@/views/home/components/Home.vue";
 import HomePage from "@/views/home/HomePage.vue";
 import UserPage from "@/views/home/user/UserPage.vue";
+import { useUserStore } from "@/store/user";
+import pinia from "@/store/pinia";
+
+
 const routes = [
   {
     path: "/",
     redirect: "/home",
-    
   },
 
   {
@@ -18,7 +21,7 @@ const routes = [
       requireAuth: true,
     },
     component: HomePage,
-    redirect:"",
+    redirect: "",
     children: [
       { path: "", component: Home },
       { path: ":id", component: UserPage },
@@ -42,8 +45,18 @@ const router = createRouter({
   routes,
   linkActiveClass: "active",
 });
+
+const user = useUserStore(pinia);
+
 router.beforeEach((to, from, next) => {
-  console.log(to, from);
+
+  if (to.meta.requireAuth) {
+    if (!user.isAuth) {
+      next({
+        path: "/auth",
+      });
+    }
+  }
   next();
 });
 

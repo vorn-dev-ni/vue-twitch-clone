@@ -1,13 +1,12 @@
 <template>
-  <!-- Modal toggle -->
-  <!-- <button
+  <button
     data-modal-target="crud-modal"
     data-modal-toggle="crud-modal"
     class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     type="button"
   >
     Toggle modal
-  </button> -->
+  </button>
 
   <!-- Main modal -->
   <div
@@ -18,7 +17,7 @@
   >
     <div class="relative p-4 w-full max-w-md max-h-full">
       <!-- Modal content -->
-      <div class="relative bg-gray-800 rounded-lg shadow dark:bg-gray-700">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <!-- Modal header -->
         <div
           class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
