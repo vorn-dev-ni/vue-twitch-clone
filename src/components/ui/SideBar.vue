@@ -167,6 +167,7 @@
 
       <!-- User Menu -->
       <div
+      @click="resetUser"
         class="w-14 xl:w-full mx-auto mt-auto flex flex-row justify-between mb-5 rounded-full hover:bg-blue-50 dark:hover:bg-dim-800 p-2 cursor-pointer transition duration-350 ease-in-out mb-2"
       >
         <div class="flex flex-row">
@@ -177,9 +178,9 @@
           />
           <div class="hidden xl:block flex flex-col ml-2">
             <h1 class="text-gray-500 dark:text-white font-bold text-sm">
-              Joe Biden
+              Dararith
             </h1>
-            <p class="text-gray-400 text-sm">@JoeBiden</p>
+            <p class="text-gray-400 text-sm">@Dararith</p>
           </div>
         </div>
         <div class="hidden xl:block">
@@ -200,10 +201,12 @@
 </template>
 
 <script>
+import { useUserStore } from '@/store/user';
+import { mapActions } from 'pinia';
 export default {
-  setup() {
-    return {};
-  },
+    methods:{
+      ...mapActions(useUserStore,['resetUser'])
+    }
 };
 </script>
 

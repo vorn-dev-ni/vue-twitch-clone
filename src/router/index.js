@@ -5,8 +5,6 @@ import Home from "@/views/home/components/Home.vue";
 import HomePage from "@/views/home/HomePage.vue";
 import UserPage from "@/views/home/user/UserPage.vue";
 import { useUserStore } from "@/store/user";
-import pinia from "@/store/pinia";
-
 
 const routes = [
   {
@@ -46,14 +44,17 @@ const router = createRouter({
   linkActiveClass: "active",
 });
 
-const user = useUserStore(pinia);
-
 router.beforeEach((to, from, next) => {
-
   if (to.meta.requireAuth) {
-    if (!user.isAuth) {
+    const store = useUserStore();
+    console.log(store.getAuth);
+    if (store.getAuth === false) return next("/auth");
+  }
+  const store = useUserStore();
+  if (to.path.includes("auth")) {
+    if (store.isAuth) {
       next({
-        path: "/auth",
+        path: "/home",
       });
     }
   }

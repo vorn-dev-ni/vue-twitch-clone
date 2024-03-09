@@ -14,14 +14,23 @@
   </layout>
 </template>
 <script>
+import { useUserStore } from "@/store/user";
+import { mapState } from "pinia";
 import IconX from "./components/IconX.vue";
 import Login from "./components/Login.vue";
 import Layout from "@/components/ui/Layout.vue";
+
 export default {
   components: {
     IconX,
     Login,
     Layout,
   },
+
+  computed: {
+    ...mapState(useUserStore, ["getAuth"]),
+  },
+
+
 };
 </script>

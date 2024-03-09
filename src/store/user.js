@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("user", {
-  persist: true,
   state: () => ({
     users: [],
     isAuth: false,
@@ -13,10 +12,10 @@ export const useUserStore = defineStore("user", {
 
   getters: {
     getUsers: (state) => state.users,
+    getAuth: (state) => state.isAuth,
   },
   actions: {
     registerUser(user) {
-      console.log(user);
       //Login to check existing user
       this.users.forEach((user) => {
         if (user?.email === user.email) {
@@ -24,9 +23,15 @@ export const useUserStore = defineStore("user", {
           return;
         }
       });
-
-      this.users.unshift(user);
+      this.isAuth = true;
+      this.users.push(user);
+      console.log(this.users);
+    },
+    resetUser() {
+      this.users = [];
+      this.isAuth = false;
     },
     checkAuthentication() {},
   },
+  persist: true,
 });

@@ -3,12 +3,10 @@
     class="text-white lg:col-span-2 col-span-5 sm:col-span-4 flex-col justify-center border-r-[1px] border-l-[1px] border-gray-600"
   >
     <TabBar @toggle-tab="changeTab" :active="activeTab" />
-
     <tweet-bar />
     <keep-alive>
       <component :is="tab" />
     </keep-alive>
-
     <navigation-bar />
   </div>
 </template>
