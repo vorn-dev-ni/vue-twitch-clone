@@ -1,5 +1,7 @@
 <template>
-  <nav class="w-68 xs:w-88 xl:w-275 h-screen col-span-1 hidden sm:block sm:col-span-1">
+  <nav
+    class="w-68 xs:w-88 xl:w-275 h-screen col-span-1 hidden sm:block sm:col-span-1"
+  >
     <div
       class="flex flex-col h-screen xl:pr-3 fixed overflow-y-auto w-68 xs:w-88 xl:w-275 text-gray-500"
     >
@@ -167,7 +169,7 @@
 
       <!-- User Menu -->
       <div
-      @click="resetUser"
+        @click="logoff"
         class="w-14 xl:w-full mx-auto mt-auto flex flex-row justify-between mb-5 rounded-full hover:bg-blue-50 dark:hover:bg-dim-800 p-2 cursor-pointer transition duration-350 ease-in-out mb-2"
       >
         <div class="flex flex-row">
@@ -201,17 +203,20 @@
 </template>
 
 <script>
-import { useUserStore } from '@/store/user';
-import { mapActions } from 'pinia';
+import { useUserStore } from "@/store/user";
+import { mapActions } from "pinia";
 export default {
-    methods:{
-      ...mapActions(useUserStore,['resetUser'])
-    }
+  methods: {
+    ...mapActions(useUserStore, ["signout"]),
+    logoff() {
+      this.$router.go(); // Reloads the current route
+      this.signout(); //Sign user out
+    },
+  },
 };
 </script>
 
-<style  scoped>
-
+<style scoped>
 @media only screen and (max-width: 600px) {
   nav {
     background-color: lightblue;

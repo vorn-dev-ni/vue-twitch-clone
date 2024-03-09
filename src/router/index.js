@@ -47,7 +47,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     const store = useUserStore();
-    console.log(store.getAuth);
     if (store.getAuth === false) return next("/auth");
   }
   const store = useUserStore();

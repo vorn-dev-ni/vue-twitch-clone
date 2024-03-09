@@ -10,9 +10,10 @@
         <div class="relative p-4 w-full max-w-md max-h-full">
           <!-- Modal content -->
           <div
-            class="relative bg-darkprimary rounded-lg shadow dark:bg-gray-700"
+            class="relative bg-darkprimary rounded-lg shadow dark:bg-gray-700 p-3"
           >
             <button
+              @click="reset"
               id="btn-close"
               type="button"
               class="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white justify-self-center mx-10 px-2 py-2 hover:bg-slate-300"
@@ -43,13 +44,13 @@
             </div>
 
             <h1
-              class="font-semibold text-white dark:text-white text-center text-3xl mb-3"
+              class="font-semibold text-white dark:text-white text-center text-3xl mb-10"
             >
               Create Your Account
             </h1>
 
             <!-- Modal body -->
-            <Form @submit="submit" :validation-schema="schema">
+            <Form @submit="submit" :validation-schema="schema" ref="form">
               <div class="grid gap-4 mb-4 grid-cols-2">
                 <div class="col-span-2">
                   <div class="relative">
@@ -60,7 +61,10 @@
                       placeholder=""
                       class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-white bg-transparent rounded-lg border-1 border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                     />
-                    <ErrorMessage name="name" class="!text-red-500 font-bold" />
+                    <ErrorMessage
+                      name="name"
+                      class="!text-red-500 font-bold my-3"
+                    />
                     <label
                       for="floating_outlined"
                       class="absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-white peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
@@ -79,6 +83,7 @@
                     />
                     <ErrorMessage
                       name="email"
+                      my-3
                       class="!text-red-500 font-bold"
                     />
                     <label
@@ -99,6 +104,7 @@
                     />
                     <ErrorMessage
                       name="password"
+                      my-3
                       class="!text-red-500 font-bold"
                     />
                     <label
@@ -148,9 +154,19 @@
                         @click="handleInput"
                       />
                     </Field>
-                    <ErrorMessage name="dob" class="!text-red-500 font-bold" />
+                    <ErrorMessage
+                      name="dob"
+                      class="!text-red-500 font-bold"
+                      my-3
+                    />
                   </div>
                 </div>
+              </div>
+
+              <div class="error" :v-if="validation.message">
+                <p class="text-red-500 text-center">
+                  {{ validation.message }}
+                </p>
               </div>
 
               <Button
@@ -241,17 +257,21 @@ export default {
     };
   },
   computed: {
-    ...mapState(useUserStore, ["getUsers", "getAuth"]),
+    ...mapState(useUserStore, ["getUsers", "getAuth", "validation"]),
   },
   methods: {
-    ...mapActions(useUserStore, ["registerUser"]),
+    ...mapActions(useUserStore, ["registerUser", "clearValidation"]),
     submit(values) {
       this.registerUser(values);
-      document.getElementById("btn-close").click();
-      this.$router.push({ path: "/home" });
+      if (!this.validation.message) {
+        document.getElementById("btn-close").click();
+        this.$router.push({ path: "/home" });
+      }
+    },
+    reset() {
+      this.clearValidation();
+      this.$refs.form.resetForm();
     },
   },
-
-  mounted() {},
 };
 </script>

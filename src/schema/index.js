@@ -18,3 +18,14 @@ export const userSchema = Yup.object().shape({
     .matches(emailRegex, "Invalid email"),
   createdOn: Yup.date().default(() => new Date()),
 });
+export const loginSchema = Yup.object().shape({
+  email: Yup.string()
+    .trim()
+    .required("Required")
+    .email("Invalid email")
+    .matches(emailRegex, "Invalid email"),
+  password: Yup.string()
+    .min(6, "Must be at least 6 characters")
+    .max(20, "Must be 20 characters or less ")
+    .required("Please provide your password"),
+});

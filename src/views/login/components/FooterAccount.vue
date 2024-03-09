@@ -8,9 +8,13 @@
     >
       <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
-        <div class="relative bg-darkprimary rounded-lg shadow dark:bg-gray-700">
+        <div
+          class="relative bg-darkprimary rounded-lg shadow dark:bg-gray-700 p-6"
+        >
           <button
+            @click="reset"
             type="button"
+            id="btn-close-login"
             class="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white justify-self-center mx-10 px-2 py-2 hover:bg-slate-300"
             data-modal-toggle="login-modal"
           >
@@ -34,36 +38,44 @@
           <!-- Modal header -->
 
           <h1
-            class="font-semibold text-white dark:text-white text-center text-3xl mb-3"
+            class="font-semibold text-white dark:text-white text-center text-3xl mb-10"
           >
             Login Account
           </h1>
 
           <!-- Modal body -->
-          <form class="p-4 md:p-5">
+
+          <Form @submit="submit" :validation-schema="schema" ref="form">
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
                 <div class="relative">
-                  <input
+                  <Field
                     type="email"
                     id="floating_outlined"
+                    name="email"
+                    placeholder=""
                     class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-white bg-transparent rounded-lg border-1 border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
-                    placeholder=" "
                   />
+                  <ErrorMessage name="email" class="!text-red-500 font-bold" />
                   <label
                     for="floating_outlined"
                     class="absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-white peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                    >Email
-                  </label>
+                    >Email</label
+                  >
                 </div>
               </div>
               <div class="col-span-2">
                 <div class="relative">
-                  <input
+                  <Field
                     type="password"
                     id="floating_outlined"
+                    name="password"
+                    placeholder=""
                     class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-white bg-transparent rounded-lg border-1 border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
-                    placeholder=" "
+                  />
+                  <ErrorMessage
+                    name="password"
+                    class="!text-red-500 font-bold"
                   />
                   <label
                     for="floating_outlined"
@@ -71,32 +83,22 @@
                     >Password</label
                   >
                 </div>
-
-                <h5 class="text-xs my-2 font-bold text-white">
-                  <span class="text-primary">Forget Password?</span>
-                </h5>
               </div>
             </div>
-
+            <div>
+              <p class="text-red-500" :v-if="validation.message">
+                {{ validation.message }}
+              </p>
+            </div>
             <Button
+              type="submit"
               class="w-full bg-white text-black rounded-xl mb-10 mt-10 duration-1000 transition-all ease-linear hover:bg-slate-500"
             >
               <template #placeholder>
                 <h6 class="font-bold">Sign Up</h6>
               </template>
             </Button>
-            <div class="col-span-2">
-              <h5 class="text-sm font-bold text-white">
-                Don't have an account?
-                <span
-                  class="text-primary hover:text-blue-600 hover:cursor-pointer"
-                  data-modal-target="crud-modal"
-                  data-modal-toggle="crud-modal"
-                  >Sign Up</span
-                >
-              </h5>
-            </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
@@ -124,17 +126,47 @@
         data-modal-target="login-modal"
         data-modal-toggle="login-modal"
       >
-        Sign Up
+        Login
       </h3>
     </template>
   </Button>
 </template>
 
 <script>
+import { Form, Field, ErrorMessage } from "vee-validate";
+import { mapActions, mapState } from "pinia";
+import { loginSchema } from "@/schema";
+import { useUserStore } from "@/store/user.js";
 import Button from "@/components/Button.vue";
 
 export default {
-  components: { Button },
+  components: { Button, Form, Field, ErrorMessage },
+  data() {
+    const schema = loginSchema;
+    return {
+      schema,
+    };
+  },
+  computed: {
+    ...mapState(useUserStore, ["getUsers", "getAuth", "validation"]),
+  },
+
+  watch: {},
+  methods: {
+    ...mapActions(useUserStore, ["loginuser", "clearValidation"]),
+    submit(values) {
+      console.log(this.isSubmitting);
+      if (this.loginuser(values)) {
+        console.log("here");
+        document.getElementById("btn-close-login").click();
+        this.$router.push("/home");
+      }
+    },
+    reset() {
+      this.clearValidation();
+      this.$refs.form.resetForm();
+    },
+  },
 };
 </script>
 

@@ -17,21 +17,44 @@ export const useUserStore = defineStore("user", {
   actions: {
     registerUser(user) {
       //Login to check existing user
-      this.users.forEach((user) => {
-        if (user?.email === user.email) {
+      this.validation.message = ""
+      this.users.forEach((auth) => {
+        if (user?.email === auth.email) {
           this.validation.message = "User is already exists";
           return;
         }
       });
       this.isAuth = true;
-      this.users.push(user);
-      console.log(this.users);
+      this.users.push({ ...user, id: Date.now() + Math.random() * 10 });
     },
-    resetUser() {
-      this.users = [];
+    signout() {
       this.isAuth = false;
     },
-    checkAuthentication() {},
+    loginuser(user) {
+      let message = "Invalid user credential";
+      if (this.users.length) {
+        this.users.forEach((auth) => {
+          console.log(auth);
+          if (auth?.email?.trim() === user.email?.trim()) {
+            message = "";
+            if (auth?.password?.trim() !== user.password?.trim()) {
+              message = "Password is invalid";
+            }
+          } else {
+            message = "Invalid user credential";
+          }
+        });
+      }
+
+      this.validation.message = message;
+      if (message) {
+        return (this.isAuth = false);
+      }
+      return (this.isAuth = true);
+    },
+    clearValidation() {
+      this.validation.message = "";
+    },
   },
   persist: true,
 });
