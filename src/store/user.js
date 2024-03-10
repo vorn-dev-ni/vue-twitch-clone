@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
-
+import * as dayjs from "dayjs";
 export const useUserStore = defineStore("user", {
   state: () => ({
     users: [],
     isAuth: false,
+    currentUserId: "",
     validation: {
       message: "",
       status: null,
@@ -13,11 +14,12 @@ export const useUserStore = defineStore("user", {
   getters: {
     getUsers: (state) => state.users,
     getAuth: (state) => state.isAuth,
+    getCurrentUserId: (state) => state.currentUserId,
   },
   actions: {
     registerUser(user) {
       //Login to check existing user
-      this.validation.message = ""
+      this.validation.message = "";
       this.users.forEach((auth) => {
         if (user?.email === auth.email) {
           this.validation.message = "User is already exists";
@@ -25,32 +27,48 @@ export const useUserStore = defineStore("user", {
         }
       });
       this.isAuth = true;
-      this.users.push({ ...user, id: Date.now() + Math.random() * 10 });
+      const uid = Date.now() + Math.random() * 10;
+      this.currentUserId = uid;
+      this.users.push({
+        ...user,
+        id: uid,
+        createdOn: dayjs(Date.now()).format("DD-MM-YYYY"),
+      });
     },
     signout() {
       this.isAuth = false;
+      // this.users = [];
     },
     loginuser(user) {
       let message = "Invalid user credential";
       if (this.users.length) {
         this.users.forEach((auth) => {
-          console.log(auth);
           if (auth?.email?.trim() === user.email?.trim()) {
             message = "";
-            if (auth?.password?.trim() !== user.password?.trim()) {
-              message = "Password is invalid";
+            if (auth?.password === user.password) {
+              message = "";
+              return;
+            } else {
+              message = "Invalid Password";
             }
-          } else {
-            message = "Invalid user credential";
           }
         });
       }
 
       this.validation.message = message;
+      console.log(message);
       if (message) {
         return (this.isAuth = false);
       }
+      this.currentUserId = this.users.find(
+        (auth) => auth.email === user.email
+      )?.id;
+
       return (this.isAuth = true);
+    },
+    findSingleUser(userId) {
+      console.log(userId);
+      return this.users.find((user) => user.id === userId);
     },
     clearValidation() {
       this.validation.message = "";

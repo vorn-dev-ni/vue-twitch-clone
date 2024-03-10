@@ -175,14 +175,14 @@
         <div class="flex flex-row">
           <img
             class="w-10 h-10 rounded-full"
-            src="https://pbs.twimg.com/profile_images/1308769664240160770/AfgzWVE7_normal.jpg"
-            alt="Joe Biden"
+            src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
+            alt="img-avatar"
           />
           <div class="hidden xl:block flex flex-col ml-2">
             <h1 class="text-gray-500 dark:text-white font-bold text-sm">
-              Dararith
+              {{ user?.name }}
             </h1>
-            <p class="text-gray-400 text-sm">@Dararith</p>
+            <p class="text-gray-400 text-sm">@ {{ user?.name }}</p>
           </div>
         </div>
         <div class="hidden xl:block">
@@ -204,14 +204,25 @@
 
 <script>
 import { useUserStore } from "@/store/user";
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 export default {
   methods: {
-    ...mapActions(useUserStore, ["signout"]),
+    ...mapActions(useUserStore, ["signout", "findSingleUser"]),
     logoff() {
       this.$router.go(); // Reloads the current route
       this.signout(); //Sign user out
     },
+  },
+  computed: {
+    ...mapState(useUserStore, ["getCurrentUserId"]),
+  },
+  data() {
+    return {
+      user: {},
+    };
+  },
+  mounted() {
+    this.user = this?.findSingleUser(this?.getCurrentUserId);
   },
 };
 </script>

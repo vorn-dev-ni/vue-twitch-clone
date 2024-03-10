@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-shrink-0 p-4 pb-0">
     <a href="#" class="flex-shrink-0 group block">
-      <div class="flex items-top">
+      <div class="flex items-top justify-between">
         <div>
           <img
             class="w-10 h-10 rounded-full"
-            src="https://images.unsplash.com/photo-1618641986557-1ecd230959aa?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
             alt="Rounded-avatar"
           />
         </div>
@@ -13,7 +13,7 @@
           <p
             class="flex items-center text-base leading-6 font-medium text-white dark:text-white"
           >
-            Dararith
+            {{ user?.name?.slice(0, 10) }}
             <svg
               viewBox="0 0 24 24"
               aria-label="Verified account"
@@ -29,8 +29,18 @@
             <span
               class="ml-1 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150"
             >
-              @JoeBiden . Nov 7
+              @ {{ user?.name?.slice(0, 10) }}. {{ user?.createdOn }}
             </span>
+            <Button
+              class="!bg-transparent !ring-offset-0 !ring-0"
+              @click="deleteTweets(id)"
+            >
+              <template #placeholder>
+                <h6 class="text-sm text-red-500 hover:!text-red-700 font-bold">
+                  Delete
+                </h6>
+              </template>
+            </Button>
           </p>
         </div>
       </div>
@@ -39,7 +49,34 @@
 </template>
 
 <script>
-export default {};
+import Button from "@/components/Button.vue";
+import { useTweetStore } from "@/store/tweet";
+import { useUserStore } from "@/store/user";
+import { mapActions } from "pinia";
+export default {
+  components: {
+    Button,
+  },
+  props: ["id", "userId"],
+  methods: {
+    ...mapActions(useTweetStore, ["deleteTweets"]),
+    ...mapActions(useUserStore, ["findSingleUser"]),
+  },
+  data() {
+    return {
+      user: {},
+    };
+  },
+  mounted() {
+    this.user = this?.findSingleUser(this?.userId);
+  },
+  watch: {
+    userId: function (newVal) {
+
+      this.user = this.findSingleUser(newVal);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
