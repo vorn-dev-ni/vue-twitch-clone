@@ -1,16 +1,16 @@
 <template>
   <div class="text-white">
 
-    <TweetCard v-for="(item, index) in list" :key="index"></TweetCard>
+    <!-- <TweetCard v-for="(item, index) in list" :key="index"></TweetCard> -->
   </div>
 </template>
 
 <script>
-import TweetCard from "./TweetPost/TweetCard.vue";
+// import TweetCard from "./TweetPost/TweetCard.vue";
 
 export default {
   components: {
-    TweetCard,
+    // TweetCard,
   },
   data() {
     return {

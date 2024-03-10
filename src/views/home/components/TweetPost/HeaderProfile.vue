@@ -9,7 +9,7 @@
             alt="Rounded-avatar"
           />
         </div>
-        <div class="ml-3">
+        <div class="ml-3 bg-red-400">
           <p
             class="flex items-center text-base leading-6 font-medium text-white dark:text-white"
           >
@@ -72,7 +72,6 @@ export default {
   },
   watch: {
     userId: function (newVal) {
-
       this.user = this.findSingleUser(newVal);
     },
   },

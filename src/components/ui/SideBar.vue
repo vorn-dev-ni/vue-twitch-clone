@@ -6,7 +6,7 @@
       class="flex flex-col h-screen xl:pr-3 fixed overflow-y-auto w-68 xs:w-88 xl:w-275 text-gray-500"
     >
       <!-- Logo -->
-      <a class="flex my-2 justify-center xl:justify-start" href="#">
+      <router-link class="flex my-2 justify-center xl:justify-start" to="/">
         <svg
           viewBox="0 0 24 24"
           class="w-8 h-8 text-primary dark:text-white"
@@ -18,13 +18,13 @@
             ></path>
           </g>
         </svg>
-      </a>
+      </router-link>
       <!-- /Logo -->
 
       <!-- Nav -->
       <nav class="mt-5">
-        <a
-          href="#"
+        <router-link
+          to="/"
           class="flex items-center justify-center xl:justify-start text-primary mb-8 transition duration-350 ease-in-out"
         >
           <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6">
@@ -36,7 +36,7 @@
             ></path>
           </svg>
           <span class="hidden xl:block ml-4 font-bold text-md">Home</span>
-        </a>
+        </router-link>
 
         <a
           href="#"

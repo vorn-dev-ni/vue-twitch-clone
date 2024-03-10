@@ -33,10 +33,13 @@ export const useUserStore = defineStore("user", {
         ...user,
         id: uid,
         createdOn: dayjs(Date.now()).format("DD-MM-YYYY"),
+        follwerings:[],
+        follwers:[]
       });
     },
     signout() {
       this.isAuth = false;
+      this.currentUserId=null
       // this.users = [];
     },
     loginuser(user) {
@@ -56,7 +59,6 @@ export const useUserStore = defineStore("user", {
       }
 
       this.validation.message = message;
-      console.log(message);
       if (message) {
         return (this.isAuth = false);
       }
@@ -68,7 +70,7 @@ export const useUserStore = defineStore("user", {
     },
     findSingleUser(userId) {
       console.log(userId);
-      return this.users.find((user) => user.id === userId);
+      return this.users?.find((user) => user.id === userId);
     },
     clearValidation() {
       this.validation.message = "";

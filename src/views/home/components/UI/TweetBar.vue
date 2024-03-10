@@ -1,16 +1,16 @@
 <template>
-  <div
-    class="border-b border-gray-200 dark:border-dim-200 pb-4 border-l border-r"
-  >
+  <div class="pb-4 !border-b-[1px] !border-gray-500">
     <Form @submit="submit" :validation-schema="schema" ref="form">
       <div class="flex flex-shrink-0 p-4 pb-0">
-        <div class="w-12 flex items-top">
-          <img
-            class="inline-block h-10 w-10 rounded-full"
-            src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
-            alt=""
-          />
-        </div>
+        <router-link :to="'user/'+getCurrentUserId">
+          <div class="w-12 flex items-top">
+            <img
+              class="inline-block h-10 w-10 rounded-full"
+              src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
+              alt=""
+            />
+          </div>
+        </router-link>
         <Field
           as="textarea"
           name="description"
@@ -18,7 +18,7 @@
           cols="30"
           rows="50"
           class="dark:text-white placeholder-gray-400 w-full min-h-[24px] max-h-[100px] overflow-auto bg-transparent border-0 focus:!outline-none resize-none focus:!border-none placeholder:!text-gray-400 focus:!ring-0 !ring-offset-0"
-          placeholder="What's happening?"
+          :placeholder="placeholder || 'Whats happening?'"
         />
       </div>
 
@@ -71,8 +71,8 @@
           </svg>
         </a>
 
-        <a
-          href="#"
+        <router-link
+          to="/"
           class="text-blue-400 hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2"
         >
           <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
@@ -87,7 +87,7 @@
               <circle cx="9.262" cy="9.458" r="1.478"></circle>
             </g>
           </svg>
-        </a>
+        </router-link>
 
         <a
           href="#"
@@ -114,7 +114,9 @@
           class="bg-secondary hover:bg-primary text-white rounded-full py-1 px-4 ml-auto mr-1 !border-0 !outline-none !ring-0 !ring-offset-0"
         >
           <template #placeholder>
-            <span class="font-bold text-sm">Tweet</span>
+            <span class="font-bold text-sm">
+              {{ buttonText || "Tweet" }}
+            </span>
           </template>
         </Button>
       </div>
@@ -129,6 +131,7 @@ import { tweetComposeSchema } from "@/schema";
 import { mapActions, mapState } from "pinia";
 import { useTweetStore } from "@/store/tweet";
 import { useUserStore } from "@/store/user";
+import { useReplyStore } from "@/store/replies";
 export default {
   components: { Form, Field, ErrorMessage, Button },
 
@@ -142,16 +145,29 @@ export default {
   computed: {
     ...mapState(useUserStore, ["getCurrentUserId"]),
   },
+  props: ["placeholder", "buttonText", "type", "postId"],
   methods: {
     ...mapActions(useTweetStore, ["postTweets"]),
+    ...mapActions(useReplyStore, ["createReplies"]),
     submit(values) {
+      console.log(this.postId);
       console.log(values);
-      this.postTweets({
-        description: values.description,
-        attachment: [],
-        tags: [],
-        userId: this.getCurrentUserId,
-      });
+      if (this.type === "tweet") {
+        this.postTweets({
+          description: values.description,
+          attachment: [],
+          tags: [],
+          userId: this.getCurrentUserId,
+        });
+      } else {
+        console.log("run");
+        this.createReplies({
+          description: values.description,
+          postId: this.postId,
+          userId: this.getCurrentUserId,
+          likedCount: 0,
+        });
+      }
       this.$refs.form.resetForm();
     },
   },

@@ -1,28 +1,20 @@
 <template>
   <div
-    class="bg-transparent !border-none rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+
+    class="hover:!cursor-pointer bg-transparent rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 !border-b-2 !border-gray-500"
   >
-    <div class="p-5">
+    <div class="p-5"  @click="this.$router.push('/home/' + id)">
       <header-profile :id="id" :userId="userId" />
 
-      <p class="mb-3 font-normal text-white text-sm">
+      <p class="mb-3 font-normal text-white text-sm my-3"    >
         {{ description }}
       </p>
 
-      <div class="flex my-3 mr-2 rounded-2xl border border-gray-600">
-        <img
-          class="rounded-2xl"
-          src="https://pbs.twimg.com/media/EnTkhz-XYAEH2kY?format=jpg&amp;name=small"
-          alt=""
-        />
-      </div>
-
       <bottom-link
         :postId="id"
-       :likesCount="likesCount"
-       :repliesCount="repliesCount"
-       :retweetsCount="retweetsCount"
-       
+        :likesCount="likesCount"
+        :repliesCount="repliesCount"
+        :retweetsCount="retweetsCount"
       />
     </div>
   </div>
@@ -44,8 +36,5 @@ export default {
     "retweetsCount",
     "repliesCount",
   ],
-  mounted() {
-    console.log( this.repliesCount);
-  },
 };
 </script>

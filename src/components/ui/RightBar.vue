@@ -2,7 +2,7 @@
   <nav class="h-screen col-span-2 items-center hidden md:block w-full p-5">
     <search-input />
     <card-panel
-      class="card !rounded-2xl !bg-darkprimary space-y-5 gap-5 mb-5 !outline-none !border-0 my-20 w-full py-5"
+      class="card !rounded-2xl !bg-darkprimary space-y-5 gap-5 mb-5 !outline-none !border-0 my-3 w-full py-5"
     >
       <template #title>
         <h3 class="text-white font-bold">Subscribe to Premium</h3>

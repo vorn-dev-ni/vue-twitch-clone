@@ -27,7 +27,7 @@ export default {
   components: { CardPanel },
   data() {
     return {
-      trendingList: Array.from({ length: 15 }),
+      trendingList: Array.from({ length: 5 }),
     };
   },
 };

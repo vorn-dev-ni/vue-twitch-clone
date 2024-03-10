@@ -3,8 +3,9 @@ import NotFound from "@/views/404/NotFound.vue";
 import LoginPage from "@/views/login/LoginPage.vue";
 import Home from "@/views/home/components/Home.vue";
 import HomePage from "@/views/home/HomePage.vue";
-import UserPage from "@/views/home/user/UserPage.vue";
+import TweetUserPage from "@/views/tweet/TweetUser.vue";
 import { useUserStore } from "@/store/user";
+import ProfilePage from "@/views/profile/Profile.vue";
 
 const routes = [
   {
@@ -22,7 +23,8 @@ const routes = [
     redirect: "",
     children: [
       { path: "", component: Home },
-      { path: ":id", component: UserPage },
+      { path: "user/:id", component: ProfilePage, props: true },
+      { path: ":id", component: TweetUserPage, props: true },
       { path: ":notFound(.*)", component: NotFound },
     ],
   },

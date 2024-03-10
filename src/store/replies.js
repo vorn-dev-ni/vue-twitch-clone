@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { useUserStore } from "./user";
 import { useTweetStore } from "./tweet";
 
 export const useReplyStore = defineStore("reply", {
@@ -11,14 +10,17 @@ export const useReplyStore = defineStore("reply", {
     },
   }),
   getters: {
-    getReplies: (state) => state.tweets,
+    getReplies: (state) => {
+      return (postId) =>
+        state.replies.filter(
+          (reply) => reply.postId.toString() === postId.toString()
+        );
+    },
   },
   actions: {
     clearValidation() {
       this.validation.message = "";
     },
-
- 
 
     createReplies(params) {
       console.log(params);
@@ -29,13 +31,16 @@ export const useReplyStore = defineStore("reply", {
         description: params.description,
         postId: params?.postId,
         userId: params?.userId,
-        likedCount: 0,
+        likes: [],
+        replies: [],
+        reposts: [],
       });
+      console.log(this.replies);
       store.updateTweetsReplies(replyId, params.postId);
     },
     deleteReplies(id) {
       console.log(id);
-      this.tweets = this.tweets.filter((tweet) => tweet.id !== id);
+      this.replies = this.replies.filter((reply) => reply.id !== id);
     },
   },
   persist: true,
