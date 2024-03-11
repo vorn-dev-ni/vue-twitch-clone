@@ -23,7 +23,7 @@ const routes = [
     redirect: "",
     children: [
       { path: "", component: Home },
-      { path: "user/:id", component: ProfilePage, props: true },
+      { path: "user/:userId", component: ProfilePage, props: true },
       { path: ":id", component: TweetUserPage, props: true },
       { path: ":notFound(.*)", component: NotFound },
     ],

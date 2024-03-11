@@ -15,6 +15,10 @@ export const useUserStore = defineStore("user", {
     getUsers: (state) => state.users,
     getAuth: (state) => state.isAuth,
     getCurrentUserId: (state) => state.currentUserId,
+    getProfileInfo: (state) => {
+      return (userId) =>
+        state.users.find((user) => user.id.toString() === userId.toString());
+    },
   },
   actions: {
     registerUser(user) {
@@ -33,13 +37,13 @@ export const useUserStore = defineStore("user", {
         ...user,
         id: uid,
         createdOn: dayjs(Date.now()).format("DD-MM-YYYY"),
-        follwerings:[],
-        follwers:[]
+        followings: [],
+        followers: [],
       });
     },
     signout() {
       this.isAuth = false;
-      this.currentUserId=null
+      this.currentUserId = null;
       // this.users = [];
     },
     loginuser(user) {
@@ -69,7 +73,7 @@ export const useUserStore = defineStore("user", {
       return (this.isAuth = true);
     },
     findSingleUser(userId) {
-      console.log(userId);
+    
       return this.users?.find((user) => user.id === userId);
     },
     clearValidation() {

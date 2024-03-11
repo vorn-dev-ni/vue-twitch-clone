@@ -18,6 +18,13 @@ export const useTweetStore = defineStore("post", {
         );
       };
     },
+    getTweetByUser: (state) => {
+      return (userId) => {
+        return state.tweets.filter(
+          (tweet) => tweet.userId.toString() === userId
+        );
+      };
+    },
   },
   actions: {
     clearValidation() {

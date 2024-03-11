@@ -9,7 +9,7 @@
             alt="Rounded-avatar"
           />
         </div>
-        <div class="ml-3 bg-red-400">
+        <div class="ml-3">
           <p
             class="flex items-center text-base leading-6 font-medium text-white dark:text-white"
           >
