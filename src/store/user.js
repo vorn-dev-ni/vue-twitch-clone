@@ -5,7 +5,68 @@ import { useReplyStore } from "./replies";
 // import { useReplyStore } from "./replies";
 export const useUserStore = defineStore("user", {
   state: () => ({
-    users: [],
+    users: [
+      {
+        id: 1,
+        username: "SivSovanpanhavorn",
+        email: "SivSovanpanhavorn@example.com",
+        password: "password1",
+        createdOn: "12-03-2024",
+        followings: [],
+        followers: [],
+        imgUri: null,
+        location: null,
+        bio: null,
+      },
+      {
+        id: 2,
+        username: "Kimhong",
+        email: "Kimhong@example.com",
+        password: "password2",
+        createdOn: "12-03-2024",
+        followings: [],
+        followers: [],
+        imgUri: null,
+        location: null,
+        bio: null,
+      },
+      {
+        id: 3,
+        username: "ChannySmuth",
+        email: "ChannySmuth@example.com",
+        password: "password3",
+        createdOn: "12-03-2024",
+        followings: [],
+        followers: [],
+        imgUri: null,
+        location: null,
+        bio: null,
+      },
+      {
+        id: 4,
+        username: "Rothanak",
+        email: "Rothanak@example.com",
+        password: "password4",
+        createdOn: "12-03-2024",
+        followings: [],
+        followers: [],
+        imgUri: null,
+        location: null,
+        bio: null,
+      },
+      {
+        id: 5,
+        username: "user5",
+        email: "user5@example.com",
+        password: "example123",
+        createdOn: "12-03-2024",
+        followings: [],
+        followers: [],
+        imgUri: null,
+        location: null,
+        bio: null,
+      },
+    ],
     isAuth: false,
     currentUserId: "",
     validation: {
@@ -33,8 +94,8 @@ export const useUserStore = defineStore("user", {
   actions: {
     fetchUsers() {
       const len = this.users?.length - 1;
-      console.log(len)
-      return this.users
+      console.log(len);
+      return this.users;
     },
     registerUser(user) {
       //Login to check existing user
@@ -62,7 +123,7 @@ export const useUserStore = defineStore("user", {
     signout() {
       this.isAuth = false;
       this.currentUserId = "";
-      console.log('error')
+      console.log("error");
     },
     resetAll() {
       console.log(this.isAuth);

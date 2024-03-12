@@ -26,44 +26,44 @@
     <section class="bg-darkprimary !rounded-xl">
       <h3 class="px-5 py-5">Who to Follow</h3>
 
-      <card-panel
-        v-for="(user, index) in users"
-        :key="index"
-        class="card !rounded-2xl !bg-darkprimary space-y-5 gap-5 !outline-none !border-0 w-full py-5 hover:!bg-gray-700 hover:!rounded-t-none !overflow-hidden my-0"
-      >
-        <template #title>
-          <div
-            @click="this.$router.push('/user/' + user?.id)"
-            class="card flex gap-2 text-white w-full justify-between hover:!cursor-pointer"
-            v-if="user.id !== getCurrentUserId"
-          >
-            <div class="text-sm flex items-center gap-3">
-              <div>
-                <img
-                  class="w-10 h-10 rounded-full"
-                  src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
-                  alt="img-avatar"
-                />
-              </div>
-
-              <div>
-                <h5>{{ user?.name }}</h5>
-                <h6>@{{ user?.name }}</h6>
-              </div>
-            </div>
-            <Button
-              @click="follow(user?.id)"
-              class="bg-white !rounded-3xl text-black hover:!text-white hover:!bg-primary !ring-0 !ring-offset-0"
+      <main v-for="(user, index) in users" :key="index">
+        <card-panel
+          v-if="user.id !== getCurrentUserId"
+          class="card !rounded-2xl !bg-darkprimary space-y-5 gap-5 !outline-none !border-0 w-full py-5 hover:!bg-gray-700 hover:!rounded-t-none !overflow-hidden my-0"
+        >
+          <template #title>
+            <div
+              @click="this.$router.push('/user/' + user?.id)"
+              class="card flex gap-2 text-white w-full justify-between hover:!cursor-pointer"
             >
-              <template #placeholder>
-                <h6 class="font-bold text-sm">
-                  {{ checkFollowUser(user?.id) ? "Following" : "Follow" }}
-                </h6>
-              </template>
-            </Button>
-          </div>
-        </template>
-      </card-panel>
+              <div class="text-sm flex items-center gap-3">
+                <div>
+                  <img
+                    class="w-10 h-10 rounded-full"
+                    src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
+                    alt="img-avatar"
+                  />
+                </div>
+
+                <div>
+                  <h5>{{ user?.name }}</h5>
+                  <h6>@{{ user?.name }}</h6>
+                </div>
+              </div>
+              <Button
+                @click="follow(user?.id)"
+                class="bg-white !rounded-3xl text-black hover:!text-white hover:!bg-primary !ring-0 !ring-offset-0"
+              >
+                <template #placeholder>
+                  <h6 class="font-bold text-sm">
+                    {{ checkFollowUser(user?.id) ? "Following" : "Follow" }}
+                  </h6>
+                </template>
+              </Button>
+            </div>
+          </template>
+        </card-panel>
+      </main>
     </section>
   </nav>
 </template>
