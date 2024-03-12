@@ -11,7 +11,7 @@
         color="dark"
       >
         <template #placeholder>
-          <h3 class="!text-gray-500 !font-fold !text-sm">For You</h3>
+          <h3 class="!text-xl !text-gray-500 !font-fold lg:!text-sm">For You</h3>
         </template>
       </Button>
       <Button
@@ -22,7 +22,7 @@
         color="dark"
       >
         <template #placeholder>
-          <h3 class="!text-gray-500 !font-fold !text-sm">Following</h3>
+          <h3 class="!text-xl !text-gray-500 !font-fold lg:!text-sm">Following</h3>
         </template>
       </Button>
     </ul>

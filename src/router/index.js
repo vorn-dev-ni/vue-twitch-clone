@@ -6,13 +6,14 @@ import HomePage from "@/views/home/HomePage.vue";
 import TweetUserPage from "@/views/tweet/TweetUser.vue";
 import { useUserStore } from "@/store/user";
 import ProfilePage from "@/views/profile/Profile.vue";
-
+import SoonPage from "@/views/404/Soon.vue";
+import ExplorePage from "@/views/home/explore/Explore.vue";
 const routes = [
   {
     path: "/",
     redirect: "/home",
   },
-
+  { path: "/:notFound", component: NotFound },
   {
     path: "/home",
     alias: "/",
@@ -23,9 +24,26 @@ const routes = [
     redirect: "",
     children: [
       { path: "", component: Home },
+
+      {
+        path: "explore",
+        alias: "explore",
+        meta: {
+          requireAuth: true,
+        },
+        component: ExplorePage,
+      },
+      {
+        path: "notification",
+        component: SoonPage,
+      },
+      {
+        path: "message",
+        component: SoonPage,
+      },
       { path: "user/:userId", component: ProfilePage, props: true },
       { path: ":id", component: TweetUserPage, props: true },
-      { path: ":notFound(.*)", component: NotFound },
+      { path: ":notFound", component: NotFound },
     ],
   },
 
@@ -37,18 +55,19 @@ const routes = [
     },
     children: [{ path: "login", redirect: "/auth" }],
   },
-  { path: "/:notFound(.*)", component: NotFound },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  linkActiveClass: "active",
+  linkActiveClass: "extactActive",
+  linkExactActiveClass: "active",
 });
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     const store = useUserStore();
+
     if (store.getAuth === false) return next("/auth");
   }
   const store = useUserStore();

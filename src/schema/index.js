@@ -43,11 +43,19 @@ export const tweetComposeSchema = Yup.object().shape({
   createdOn: Yup.date().default(() => new Date()),
 });
 export const userProfileSchema = Yup.object().shape({
-  description: Yup.string()
-    .min(10, "Description is too short at least 10 characters")
-    .max(250, "Description must be less then 100 characters")
+  name: Yup.string()
+    .min(4, "Name is too short ")
+    .max(25, "Name must be at least 25 characters")
+    .required("Name is Required"),
+  bio: Yup.string()
+    .min(10, "Bio is too short at least 10 characters")
+    .max(250, "Bio must be less then 100 characters")
     .trim()
-    .required("Description is required"),
-  images: Yup.array().max(3, "Only 3 images are allowed").nullable(),
-  tags: Yup.array().max(3, "Only 3 tags are allowed").nullable(),
+    .nullable(),
+  image: Yup.string().nullable(),
+  dob: Yup.string().required("Date is Required"),
+  location: Yup.string()
+    .min(2, "Location is too short ")
+    .max(25, "Location must be at least 25 characters")
+    .nullable(),
 });

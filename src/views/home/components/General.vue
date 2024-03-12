@@ -1,5 +1,5 @@
 <template>
-  <div class="text-white">
+  <div class="">
     <p class="text-white text-center my-10 text-sm" v-if="!getTweetLength">
       There are no available post yet
     </p>
@@ -11,6 +11,7 @@
       :createdOn="item.createdOn"
       :id="item.id"
       :userId="item.userId"
+      :imgUri="item?.imgUri"
       :likesCount="item.likes?.length"
       :retweetsCount="item.reposts?.length"
       :repliesCount="item.replies?.length"

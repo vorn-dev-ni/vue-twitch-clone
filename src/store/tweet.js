@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import { useUserStore } from "./user";
+import { useReplyStore } from "./replies";
 
 export const useTweetStore = defineStore("post", {
   state: () => ({
@@ -20,13 +22,50 @@ export const useTweetStore = defineStore("post", {
     },
     getTweetByUser: (state) => {
       return (userId) => {
-        return state.tweets.filter(
+        const userTweets = state.tweets.filter(
           (tweet) => tweet.userId.toString() === userId
         );
+        const userReposts = state.tweets.filter(
+          (tweet) =>
+            tweet.reposts?.filter(
+              (repost) => repost?.userId?.toString() === userId?.toString()
+            )?.length
+        );
+
+        console.log(userReposts);
+
+        const allPost = [...userTweets, ...userReposts];
+
+        console.log(allPost);
+        return allPost;
       };
+    },
+    getFollowingTweet: (state) => {
+      const store = useUserStore();
+      const users = store.users?.find(
+        (user) => +user.id === +store.getCurrentUserId
+      );
+
+      return state.tweets?.filter((tweet) =>
+        users?.followings?.includes(tweet?.userId?.toString())
+      );
     },
   },
   actions: {
+    deleteReplyInPost(id) {
+      const store = useReplyStore();
+      store.deleteReplies(id);
+      console.log(
+        this.tweets.map((tweet) => {
+          tweet.replies = tweet.replies?.filter((reply) => reply !== id);
+          return tweet;
+        })?.length
+      );
+      return this.tweets.map((tweet) => {
+        tweet.replies = tweet.replies?.filter((reply) => reply !== id);
+        return tweet;
+      });
+    },
     clearValidation() {
       this.validation.message = "";
     },

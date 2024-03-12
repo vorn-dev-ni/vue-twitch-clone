@@ -14,20 +14,24 @@
       :key="index"
     />
   </main>
+  <navigation-bar />
 </template>
 
 <script>
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import TweetCard from "@/views/home/components/TweetPost/TweetCard.vue";
+import NavigationBar from "@/views/home/components/UI/NavigationBar.vue";
 import { useReplyStore } from "@/store/replies";
 import { useTweetStore } from "@/store/tweet";
 export default {
   components: {
     TweetCard,
+    NavigationBar,
   },
   data() {
     return {
-      replies: [],
+      // replies: [],
+      type: "reply",
     };
   },
   mounted() {
@@ -41,12 +45,23 @@ export default {
     ...mapState(useTweetStore, ["tweets"]),
   },
   watch: {
-    tweets() {
-      this.replies = this.getReplies(this?.postId);
+    replies() {
+      return this.getReplies(this.postId);
     },
   },
   methods: {
-    // ...mapActions(useTweetStore, ["updateLike"]),
+    ...mapActions(useTweetStore, ["deleteReplyInPost"]),
+
+    deleteReplies(id) {
+      this.deleteReplyInPost(id);
+    },
+  },
+  provide() {
+    return {
+      // Provide a function named "doSomething" to child components
+      deleteReplies: this.deleteReplies,
+      type: this.type,
+    };
   },
 };
 </script>

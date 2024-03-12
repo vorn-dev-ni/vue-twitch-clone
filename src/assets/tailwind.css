@@ -17,6 +17,10 @@
     background: #fff;
   }
 
+  .active {
+    @apply text-primary;
+  }
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #ccc;

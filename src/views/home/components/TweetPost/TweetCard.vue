@@ -1,16 +1,18 @@
 <template>
   <div
-
     class="hover:!cursor-pointer bg-transparent rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 !border-b-2 !border-gray-500"
   >
-    <div class="p-5"  @click="this.$router.push('/home/' + id)">
-      <header-profile :id="id" :userId="userId" />
+    <div class="p-5">
+      <header-profile :id="id" :userId="userId" :imgUri="imgUri" />
 
-      <p class="mb-3 font-normal text-white text-sm my-3"    >
-        {{ description }}
-      </p>
+      <div class="body" @click="this.$router.push('/home/' + id)">
+        <p class="mb-3 font-normal text-white text-sm my-3">
+          {{ description }}
+        </p>
+      </div>
 
       <bottom-link
+        :userId="userId"
         :postId="id"
         :likesCount="likesCount"
         :repliesCount="repliesCount"
@@ -35,6 +37,7 @@ export default {
     "likesCount",
     "retweetsCount",
     "repliesCount",
+    "imgUri",
   ],
 };
 </script>

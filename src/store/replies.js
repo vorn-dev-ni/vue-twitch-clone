@@ -35,12 +35,11 @@ export const useReplyStore = defineStore("reply", {
         replies: [],
         reposts: [],
       });
-      console.log(this.replies);
+
       store.updateTweetsReplies(replyId, params.postId);
     },
     deleteReplies(id) {
-      console.log(id);
-      this.replies = this.replies.filter((reply) => reply.id !== id);
+      this.replies = this.replies.filter((reply) => +reply.id !== +id);
     },
   },
   persist: true,

@@ -2,12 +2,10 @@
   <div
     class="text-white lg:col-span-2 col-span-5 sm:col-span-4 flex-col justify-center border-r-[1px] border-l-[1px] border-gray-600"
   >
-    <router-link class="flex gap-3 items-center my-5 ml-5" to="/home">
+    <div class="flex gap-3 items-center my-5 ml-5" @click="this.$router.back()">
       <Icon icon="ep:back" class="text-lg" />
       <h4>Post</h4>
-    </router-link>
-
-
+    </div>
 
     <TweetCard
       :description="tweet?.description"
@@ -69,6 +67,24 @@ export default {
       console.log("change", newVal[0]);
       this.tweet = this.getSingleTweet(this.id);
     },
+  },
+
+  beforeRouteEnter(to, from, next) {
+ 
+    console.log(to.params);
+    const store = useTweetStore();
+    console.log(
+      !store.tweets?.filter((tweet) => tweet?.id?.toString() == to.params?.id)
+        .length
+    );
+    if (
+      !store.tweets?.filter((tweet) => tweet?.id?.toString() == to.params?.id)
+        .length
+    ) {
+      console.log("run");
+      next("/notFound"); // Redirect to the Not Found route
+    }
+    next();
   },
 };
 </script>

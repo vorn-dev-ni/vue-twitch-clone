@@ -1,11 +1,14 @@
 <template>
-  <div class="flex flex-shrink-0 p-4 pb-0">
+  <div
+    class="flex flex-shrink-0 p-4 pb-0"
+    @click="this.$router.push('/user/' + userId)"
+  >
     <a href="#" class="flex-shrink-0 group block">
       <div class="flex items-top justify-between">
-        <div>
+        <div @click="this.$router.push('/user/' + userId)">
           <img
             class="w-10 h-10 rounded-full"
-            src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
+            :src="'https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg='"
             alt="Rounded-avatar"
           />
         </div>
@@ -31,16 +34,6 @@
             >
               @ {{ user?.name?.slice(0, 10) }}. {{ user?.createdOn }}
             </span>
-            <Button
-              class="!bg-transparent !ring-offset-0 !ring-0"
-              @click="deleteTweets(id)"
-            >
-              <template #placeholder>
-                <h6 class="text-sm text-red-500 hover:!text-red-700 font-bold">
-                  Delete
-                </h6>
-              </template>
-            </Button>
           </p>
         </div>
       </div>
@@ -49,15 +42,12 @@
 </template>
 
 <script>
-import Button from "@/components/Button.vue";
 import { useTweetStore } from "@/store/tweet";
 import { useUserStore } from "@/store/user";
 import { mapActions } from "pinia";
 export default {
-  components: {
-    Button,
-  },
-  props: ["id", "userId"],
+  components: {},
+  props: ["id", "userId", "imgUri"],
   methods: {
     ...mapActions(useTweetStore, ["deleteTweets"]),
     ...mapActions(useUserStore, ["findSingleUser"]),

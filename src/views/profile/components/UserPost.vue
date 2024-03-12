@@ -39,7 +39,7 @@ export default {
     ...mapState(useTweetStore, ["getTweetByUser"]),
     userPosts() {
       // `this` points to the component instance
-      console.log(this.userId);
+
       console.log(this.getTweetByUser(this.userId));
       return this.getTweetByUser(this.userId);
     },

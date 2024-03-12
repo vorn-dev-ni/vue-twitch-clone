@@ -2,11 +2,14 @@
   <div class="pb-4 !border-b-[1px] !border-gray-500">
     <Form @submit="submit" :validation-schema="schema" ref="form">
       <div class="flex flex-shrink-0 p-4 pb-0">
-        <router-link :to="'user/'+getCurrentUserId">
+        <router-link :to="'user/' + getCurrentUserId">
           <div class="w-12 flex items-top">
             <img
               class="inline-block h-10 w-10 rounded-full"
-              src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
+              :src="
+                getProfileInfo(this.getCurrentUserId)?.imgUri ||
+                'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais'
+              "
               alt=""
             />
           </div>
@@ -142,16 +145,19 @@ export default {
       temImages: [],
     };
   },
+
   computed: {
-    ...mapState(useUserStore, ["getCurrentUserId"]),
+    ...mapState(useUserStore, [
+      "getCurrentUserId",
+      "getProfileInfo",
+      "getCurrentUserId",
+    ]),
   },
-  props: ["placeholder", "buttonText", "type", "postId"],
+  props: ["placeholder", "buttonText", "type", "postId", "imgUri"],
   methods: {
     ...mapActions(useTweetStore, ["postTweets"]),
     ...mapActions(useReplyStore, ["createReplies"]),
     submit(values) {
-      console.log(this.postId);
-      console.log(values);
       if (this.type === "tweet") {
         this.postTweets({
           description: values.description,

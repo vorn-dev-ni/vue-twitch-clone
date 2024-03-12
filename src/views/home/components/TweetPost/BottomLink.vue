@@ -72,18 +72,21 @@
             {{ likesCount }}
           </p>
         </div>
+
         <div
+          v-if="getCurrentUserId === userId"
+          @click="onDelete(postId)"
           class="flex-1 flex items-center text-gray-800 dark:text-white text-xs text-white hover:text-primary dark:hover:text-primary transition duration-350 ease-in-out"
         >
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-            <g>
-              <path
-                d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z"
-              ></path>
-              <path
-                d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z"
-              ></path>
-            </g>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 mr-2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#FF8080"
+              d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"
+            />
           </svg>
         </div>
       </div>
@@ -102,7 +105,16 @@ export default {
       "checkUserLike",
       "repostTweet",
       "checkUserRepost",
+      "deleteTweets",
     ]),
+
+    onDelete(id) {
+      if (this.type === "reply") {
+        this.deleteReplies(id);
+      } else {
+        this.deleteTweets(id);
+      }
+    },
   },
   computed: {
     ...mapState(useUserStore, ["getCurrentUserId"]),
@@ -113,7 +125,8 @@ export default {
       return newVal;
     },
   },
-  props: ["postId", "likesCount", "repliesCount", "retweetsCount"],
+  inject: ["deleteReplies", "type"],
+  props: ["postId", "likesCount", "repliesCount", "retweetsCount", "userId"],
 };
 </script>
 
