@@ -5,9 +5,13 @@
     <div class="p-5">
       <header-profile :id="id" :userId="userId" :imgUri="imgUri" />
 
-      <div class="body" @click="this.$router.push('/home/' + id)">
-        <p class="mb-3 font-normal text-white text-sm my-3">
-          {{ description }}
+      <div class="body mt-2 mb-1" @click="this.$router.push('/home/' + id)">
+        <p
+          :key="id"
+          class="mb-3 font-normal text-white text-sm my-3"
+          v-linkify="{ className: '!text-primary', target: '_blank' }"
+        >
+          {{ description ?? "loading" }}
         </p>
       </div>
 
@@ -39,5 +43,14 @@ export default {
     "repliesCount",
     "imgUri",
   ],
+  mounted() {
+    console.log(this?.description);
+  },
+  provide: {
+    description(newVal) {
+      console.log(newVal);
+      return newVal;
+    },
+  },
 };
 </script>

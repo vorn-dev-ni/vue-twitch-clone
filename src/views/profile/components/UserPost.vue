@@ -31,15 +31,13 @@ export default {
 
   inject: ["userId"],
   mounted() {
-    console.log(this.userPosts);
+ 
   },
 
   computed: {
     ...mapState(useUserStore, ["getProfileInfo"]),
     ...mapState(useTweetStore, ["getTweetByUser"]),
     userPosts() {
-      // `this` points to the component instance
-
       console.log(this.getTweetByUser(this.userId));
       return this.getTweetByUser(this.userId);
     },

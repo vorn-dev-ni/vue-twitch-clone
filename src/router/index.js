@@ -14,6 +14,7 @@ const routes = [
     redirect: "/home",
   },
   { path: "/:notFound", component: NotFound },
+  { path: "/:notFound(.*)", component: NotFound },
   {
     path: "/home",
     alias: "/",
@@ -43,6 +44,7 @@ const routes = [
       },
       { path: "user/:userId", component: ProfilePage, props: true },
       { path: ":id", component: TweetUserPage, props: true },
+      // { path: "user/:userId", component: ProfilePage, props: true },
       { path: ":notFound", component: NotFound },
     ],
   },
@@ -62,6 +64,16 @@ const router = createRouter({
   routes,
   linkActiveClass: "extactActive",
   linkExactActiveClass: "active",
+  scrollBehavior(to, from, savedPosition) {
+    //controll scroll behavirr
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return {
+      left: 0,
+      top: 0,
+    };
+  },
 });
 
 router.beforeEach((to, from, next) => {

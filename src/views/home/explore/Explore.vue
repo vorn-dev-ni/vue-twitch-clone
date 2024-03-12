@@ -12,7 +12,7 @@
       :key="index"
       class="card !rounded-none !bg-none space-y-5 gap-5 !outline-none !border-0 w-full py-5 hover:!bg-gray-700 hover:!rounded-t-none !overflow-hidden my-0"
     >
-      <template #title>
+      <template #title v-if="user?.id !== getCurrentUserId">
         <div
           class="card flex gap-2 text-white w-full justify-between hover:!cursor-pointer"
         >

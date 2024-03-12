@@ -4,7 +4,7 @@
       id="login-modal"
       tabindex="-1"
       aria-hidden="true"
-      class="hidden space-y-10 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black"
+      class="hidden space-y-10 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full !backdrop-filter !backdrop-blur-sm"
     >
       <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -37,11 +37,11 @@
           </button>
           <!-- Modal header -->
 
-          <h1
+          <h3
             class="font-semibold text-white dark:text-white text-center text-3xl mb-10"
           >
             Login Account
-          </h1>
+          </h3>
 
           <!-- Modal body -->
 
@@ -121,13 +121,7 @@
     color="dark"
   >
     <template #placeholder>
-      <h3
-        class="!text-primary !font-fold !text-sm"
-        data-modal-target="login-modal"
-        data-modal-toggle="login-modal"
-      >
-        Login
-      </h3>
+      <h3 class="!text-primary !font-fold !text-sm">Login</h3>
     </template>
   </Button>
 </template>
@@ -155,7 +149,6 @@ export default {
   methods: {
     ...mapActions(useUserStore, ["loginuser", "clearValidation"]),
     submit(values) {
-      console.log(this.isSubmitting);
       if (this.loginuser(values)) {
         console.log("here");
         document.getElementById("btn-close-login").click();

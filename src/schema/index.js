@@ -6,7 +6,8 @@ export const userSchema = Yup.object().shape({
     .min(4, "Name is too short ")
     .max(25, "Name must be at least 25 characters")
     .required("Name is Required"),
-  dob: Yup.string().required("Date is Required"),
+  dob: Yup.string().nullable().required("Date is Required"),
+
   password: Yup.string()
     .min(6, "Must be at least 6 characters")
     .max(20, "Must be 20 characters or less ")
@@ -53,7 +54,7 @@ export const userProfileSchema = Yup.object().shape({
     .trim()
     .nullable(),
   image: Yup.string().nullable(),
-  dob: Yup.string().required("Date is Required"),
+  dob: Yup.string().nullable(),
   location: Yup.string()
     .min(2, "Location is too short ")
     .max(25, "Location must be at least 25 characters")

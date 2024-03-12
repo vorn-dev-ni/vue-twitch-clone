@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import * as dayjs from "dayjs";
 import { useTweetStore } from "./tweet";
+import { useReplyStore } from "./replies";
 // import { useReplyStore } from "./replies";
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -60,18 +61,18 @@ export const useUserStore = defineStore("user", {
     },
     signout() {
       this.isAuth = false;
-      this.currentUserId = null;
+      this.currentUserId = "";
       console.log('error')
     },
     resetAll() {
       console.log(this.isAuth);
-      // const store = useTweetStore();
-      // const storeReply = useReplyStore();
+      const store = useTweetStore();
+      const storeReply = useReplyStore();
       this.isAuth = false;
       this.currentUserId = "";
-      // this.users = [];
-      // store.tweets = [];
-      // storeReply.replies = [];
+      this.users = [];
+      store.tweets = [];
+      storeReply.replies = [];
     },
     updateOnFollow(userId) {
       //update the current user that is being follow

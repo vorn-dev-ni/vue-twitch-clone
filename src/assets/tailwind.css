@@ -60,6 +60,14 @@
   .ring-off {
     @apply !ring-0 !ring-offset-0 hover:!ring-0 hover:!ring-offset-0;
   }
+
+  .modal-close {
+    @apply overflow-y-visible
+  }
+
+  .modal-open {
+    @apply overflow-y-hidden
+  }
 }
 
 @layer base {

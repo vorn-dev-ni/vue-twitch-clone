@@ -52,7 +52,6 @@
               </div>
             </div>
             <Button
-       
               @click="follow(user?.id)"
               class="bg-white !rounded-3xl text-black hover:!text-white hover:!bg-primary !ring-0 !ring-offset-0"
             >
@@ -107,4 +106,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+@media only screen and (max-width: 600px) {
+  nav {
+    background-color: lightblue;
+  }
+}
+</style>

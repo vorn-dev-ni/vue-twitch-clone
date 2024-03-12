@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="w-68 xs:w-88 xl:w-275 h-screen col-span-1 hidden sm:block sm:col-span-1"
+    class="w-68 xs:w-88 xl:w-275 h-screen col-span-1 hidden md:block sm:col-span-1"
   >
     <div
       class="flex flex-col h-screen xl:pr-3 fixed overflow-y-auto w-68 xs:w-88 xl:w-275 text-gray-500"
@@ -117,8 +117,8 @@
           <span class="hidden xl:block ml-4 font-bold text-md">Lists</span>
         </a>
 
-        <a
-          href="#"
+        <router-link
+          :to="'/user/' + getCurrentUserId"
           class="flex items-center justify-center xl:justify-start text-gray-500 dark:text-white hover:text-primary dark:hover:text-primary mb-8 transition duration-350 ease-in-out"
         >
           <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6">
@@ -130,7 +130,7 @@
             ></path>
           </svg>
           <span class="hidden xl:block ml-4 font-bold text-md">Profile</span>
-        </a>
+        </router-link>
 
         <a
           href="#"
@@ -168,10 +168,17 @@
       <!-- /Nav -->
 
       <!-- User Menu -->
+
+      <li @click="logoff">
+        <div
+          class="block hover:text-red-600 text-center text-red-500 hover:cursor-pointer"
+        >
+          Sign out
+        </div>
+      </li>
       <div
-        id="dropdownHoverButton"
-        data-dropdown-toggle="dropdownHover"
-        data-dropdown-trigger="hover"
+        :key="Date.now()"
+        @click="toggle"
         class="w-14 xl:w-full mx-auto mt-auto flex flex-row justify-between mb-5 rounded-full hover:bg-blue-50 dark:hover:bg-dim-800 p-2 cursor-pointer transition duration-350 ease-in-out mb-2"
       >
         <div class="flex flex-row">
@@ -198,23 +205,6 @@
             </svg>
           </div>
         </div>
-        <div
-          id="dropdownHover"
-          class="!z-60 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 !absolute"
-        >
-          <ul
-            class="py-2 text-sm text-gray-700 dark:text-gray-200"
-            aria-labelledby="dropdownHoverButton"
-          >
-            <li @click="logoff">
-              <div
-                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Sign out
-              </div>
-            </li>
-          </ul>
-        </div>
       </div>
       <!-- /User Menu -->
     </div>
@@ -230,8 +220,11 @@ export default {
     logoff() {
       // Reloads the current route
       //Sign user out
+      this.signout();
       this.$router.go();
-      this.resetAll();
+    },
+    toggle() {
+      this.$router.push("/user/" + this.getCurrentUserId);
     },
   },
   computed: {
@@ -253,5 +246,9 @@ export default {
   nav {
     background-color: lightblue;
   }
+}
+
+.active {
+  color: #00ACED
 }
 </style>
