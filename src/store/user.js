@@ -109,7 +109,7 @@ export const useUserStore = defineStore("user", {
         if (user.id?.toString() === params?.userId) {
           user.name = params.name;
           user.bio = params.bio;
-          user.dob = params.dob;
+          user.dob = dayjs(params?.dob).format("DD-MM-YYYY"),
           user.imgUri = params.imgUri;
           user.location = params.location;
         }

@@ -169,7 +169,7 @@
 
       <!-- User Menu -->
 
-      <li @click="logoff">
+      <li @click="logoff" class="list-none">
         <div
           class="block hover:text-red-600 text-center text-red-500 hover:cursor-pointer"
         >
@@ -220,10 +220,9 @@ export default {
   methods: {
     ...mapActions(useUserStore, ["signout", "findSingleUser", "resetAll"]),
     logoff() {
-      // Reloads the current route
-      //Sign user out
-      this.signout()
       this.$router.go();
+      this.signout();
+ 
     },
     toggle() {
       this.$router.push("/user/" + this.getCurrentUserId);

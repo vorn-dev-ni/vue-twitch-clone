@@ -4,17 +4,21 @@
       <transition name="dialog">
         <div
           id="crud-modal"
+          v-if="showModal"
           tabindex="-1"
           aria-hidden="true"
-          class="hidden space-y-10 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full !backdrop-filter !backdrop-blur-sm"
+          class="space-y-10 overflow-y-scroll overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w- md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-filter backdrop-blur-sm !z-50"
         >
-          <div class="relative p-4 w-full max-w-md max-h-full">
+          <div
+            class="flex w-screen justify-center items-center h-screen"
+            @click.self="handleOpenModal"
+          >
             <!-- Modal content -->
             <div
-              class="relative bg-darkprimary rounded-lg shadow dark:bg-gray-700 p-3"
+              class="relative bg-darkprimary rounded-lg shadow dark:bg-gray-700 p-10 "
             >
               <button
-                @click="reset"
+                @click="handleOpenModal"
                 id="btn-close"
                 type="button"
                 class="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white justify-self-center mx-10 px-2 py-2 hover:bg-slate-300"
@@ -39,7 +43,7 @@
               </button>
               <!-- Modal header -->
               <div
-                class="flex items-center justify-center p-4 md:p-5 rounded-t dark:border-gray-600"
+                class="flex items-center justify-center p-10 md:p-5 rounded-t dark:border-gray-600"
               >
                 <img :src="imgIcon" alt="icon-img" class="w-6 h-6" />
               </div>
@@ -122,37 +126,17 @@
                       even if this account is for a business, a pet, or
                       something else.
                     </p>
-                    <div class="relative max-w-sm text-white">
-                      <div
-                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
-                      >
-                        <svg
-                          class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-                          />
-                        </svg>
-                      </div>
-
+                    <div class="relative max-w-sm text-white w-full">
                       <Field
                         name="dob"
-                        v-slot="{ handleChange, handleBlur, handleInput }"
+                        v-slot="{ field }"
+                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-white bg-transparent rounded-lg border-1 border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                       >
-                        <input
-                          id="floating_outlined"
-                          name="dob"
-                          datepicker
-                          type="text"
-                          class="bg-transparent border border-gray-500 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Select date"
-                          @change="handleChange"
-                          @blur="handleBlur"
-                          @click="handleInput"
+                        <VueDatepickerUi
+                          v-bind="field"
+                          input-class="!bg-transparent !w-[100%] !border-2 !border-gray-600"
+                          class="!bg-transparent"
+                          :placeholder="'Select Date'"
                         />
                       </Field>
                       <ErrorMessage
@@ -220,8 +204,7 @@
         </template>
         <template #create>
           <Button
-            data-modal-target="crud-modal"
-            data-modal-toggle="crud-modal"
+            @click="handleOpenModal"
             class="!bg-primary w-[320px] !rounded-xl py-2 hover:!bg-[#0084b4] duration-500 transition-all ease-in-out ring-off"
           >
             <template #placeholder>
@@ -236,6 +219,8 @@
   </div>
 </template>
 <script>
+import "vue-datepicker-ui/lib/vuedatepickerui.css";
+import VueDatepickerUi from "vue-datepicker-ui";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { mapActions, mapState } from "pinia";
 import { useUserStore } from "@/store/user.js";
@@ -246,8 +231,16 @@ import googleIcon from "@/assets/google.png";
 import imgUrl from "@/assets/x-social-media-white-icon.png";
 import { userSchema } from "@/schema";
 
+
 export default {
-  components: { ButtonGroup, Button, Form, Field, ErrorMessage },
+  components: {
+    ButtonGroup,
+    Button,
+    Form,
+    Field,
+    ErrorMessage,
+    VueDatepickerUi,
+  },
 
   data() {
     const schema = userSchema;
@@ -266,12 +259,29 @@ export default {
     ...mapActions(useUserStore, ["registerUser", "clearValidation"]),
     submit(values) {
       this.registerUser(values);
+
       if (!this.validation.message) {
-        document.getElementById("btn-close").click();
+        // document.getElementById("btn-close").click();
+        this.showModal = !this.showModal;
+
+        document.body.classList.remove("modal-open");
+        document.body.classList.add("modal-close");
+        this.clearValidation();
         this.$router.push({ path: "/home" });
       }
     },
-
+    handleOpenModal() {
+      this.showModal = !this.showModal;
+      this.clearValidation();
+      if (this.showModal) {
+        document.body.classList.remove("modal-close");
+        document.body.classList.add("modal-open");
+      }
+      if (!this.showModal) {
+        document.body.classList.remove("modal-open");
+        document.body.classList.add("modal-close");
+      }
+    },
     reset() {
       this.clearValidation();
       this.$refs.form.resetForm();

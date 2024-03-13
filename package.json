@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@vee-validate/yup": "^4.12.6",
+    "@vuepic/vue-datepicker": "^8.2.0",
     "autoprefixer": "^10",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.10",
@@ -22,6 +23,7 @@
     "vee-validate": "^4.12.6",
     "vue": "^3.2.13",
     "vue-3-linkify": "^1.1.0",
+    "vue-datepicker-ui": "^3.1.1",
     "vue-router": "^4.3.0",
     "yup": "^1.4.0"
   },

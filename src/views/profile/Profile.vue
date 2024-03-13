@@ -220,30 +220,25 @@
                           </svg>
                         </div>
 
-                        <Field
-                          name="dob"
-                          v-slot="{ handleChange, handleBlur, handleInput }"
-                          rules="required|date"
-                        >
-                          <input
-                            id="floating_outlined"
+                        <div class="relative max-w-sm text-white w-full">
+                          <Field
                             name="dob"
-                            datepicker
-                            type="text"
-                            :value="profileInfo?.dob"
-
-                            class="bg-transparent border border-gray-500 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Select date"
-                            @change="handleChange"
-                            @blur="handleBlur"
-                            @click="handleInput"
+                            v-slot="{ field }"
+                            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-white bg-transparent rounded-lg border-1 border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                          >
+                            <VueDatepickerUi
+                              v-bind="field"
+                              input-class="!bg-transparent !w-[100%] !border-2 !border-gray-600"
+                              class="!bg-transparent"
+                              :placeholder="profileInfo?.dob || 'Select Date'"
+                            />
+                          </Field>
+                          <ErrorMessage
+                            name="dob"
+                            class="!text-red-500 font-bold"
+                            my-3
                           />
-                        </Field>
-                        <ErrorMessage
-                          name="dob"
-                          class="!text-red-500 font-bold"
-                          my-3
-                        />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -290,7 +285,6 @@
             profileInfo?.imgUri ||
             'https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg='
           "
-          
           alt="img-fallback"
         />
 
@@ -413,6 +407,8 @@
 </template>
 
 <script>
+import "vue-datepicker-ui/lib/vuedatepickerui.css";
+import VueDatepickerUi from "vue-datepicker-ui";
 import NavigationBar from "../home/components/UI/NavigationBar.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { userProfileSchema } from "@/schema";
@@ -432,6 +428,7 @@ export default {
     Field,
     ErrorMessage,
     NavigationBar,
+    VueDatepickerUi,
   },
   data() {
     const schema = userProfileSchema;
