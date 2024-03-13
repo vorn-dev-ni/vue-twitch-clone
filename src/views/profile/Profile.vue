@@ -223,14 +223,15 @@
                         <Field
                           name="dob"
                           v-slot="{ handleChange, handleBlur, handleInput }"
-                          type="text"
+                          rules="required|date"
                         >
                           <input
                             id="floating_outlined"
                             name="dob"
                             datepicker
-                            :value="profileInfo?.dob"
                             type="text"
+                            :value="profileInfo?.dob"
+
                             class="bg-transparent border border-gray-500 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Select date"
                             @change="handleChange"
@@ -289,7 +290,8 @@
             profileInfo?.imgUri ||
             'https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg='
           "
-          alt="rounded-avatar-image"
+          
+          alt="img-fallback"
         />
 
         <Button
@@ -481,8 +483,11 @@ export default {
     handleOpenModal() {
       this.showModal = !this.showModal;
       if (this.showModal) {
+        document.body.classList.remove("modal-close");
         document.body.classList.add("modal-open");
-      } else {
+      }
+      if (!this.showModal) {
+        document.body.classList.remove("modal-open");
         document.body.classList.add("modal-close");
       }
     },
@@ -504,6 +509,8 @@ export default {
         userId: this.userId,
       });
       document.getElementById("btn-close").click();
+      document.body.classList.remove("modal-open");
+      document.body.classList.add("modal-close");
     },
     reset() {
       this.$refs.form.resetForm();

@@ -8,8 +8,12 @@
         <div @click="this.$router.push('/user/' + userId)">
           <img
             class="w-10 h-10 rounded-full"
-            :src="'https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg='"
-            alt="Rounded-avatar"
+            :src="
+              user?.imgUri ||
+              'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais'
+            "
+          
+            alt="rounded-img"
           />
         </div>
         <div class="ml-3">

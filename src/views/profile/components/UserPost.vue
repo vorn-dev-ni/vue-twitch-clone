@@ -30,16 +30,19 @@ export default {
   },
 
   inject: ["userId"],
-  mounted() {
- 
-  },
+  mounted() {},
 
   computed: {
-    ...mapState(useUserStore, ["getProfileInfo"]),
+    ...mapState(useUserStore, ["getProfileInfo", "users"]),
     ...mapState(useTweetStore, ["getTweetByUser"]),
     userPosts() {
       console.log(this.getTweetByUser(this.userId));
       return this.getTweetByUser(this.userId);
+    },
+  },
+  watch: {
+    users() {
+      console.log("run");
     },
   },
 };

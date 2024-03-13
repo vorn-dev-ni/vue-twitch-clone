@@ -184,8 +184,10 @@
         <div class="flex flex-row">
           <img
             class="w-10 h-10 rounded-full"
-            src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais"
-            alt="img-avatar"
+            :src="
+              user?.imgUri ||
+              'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1710028800&semt=ais'
+            "
           />
           <div class="hidden xl:block flex flex-col ml-2">
             <h1 class="text-gray-500 dark:text-white font-bold text-sm">
@@ -249,6 +251,6 @@ export default {
 }
 
 .active {
-  color: #00ACED
+  color: #00aced;
 }
 </style>

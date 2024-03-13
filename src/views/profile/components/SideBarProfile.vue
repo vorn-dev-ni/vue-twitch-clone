@@ -25,7 +25,6 @@
 
     <section class="bg-darkprimary !rounded-xl">
       <h3 class="px-5 py-5">Who to Follow</h3>
-
       <main v-for="(user, index) in users" :key="index">
         <card-panel
           v-if="user.id !== getCurrentUserId"
