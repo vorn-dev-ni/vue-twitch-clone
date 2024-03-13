@@ -1,5 +1,6 @@
 <template>
   <div
+
     class="hover:!cursor-pointer bg-transparent rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 !border-b-2 !border-gray-500"
   >
     <div class="p-5"> 

@@ -222,7 +222,7 @@ export default {
     logoff() {
       // Reloads the current route
       //Sign user out
-      this.signout();
+      this.resetAll()
       this.$router.go();
     },
     toggle() {

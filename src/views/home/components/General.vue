@@ -6,19 +6,22 @@
     >
       There are no available post yet
     </p>
-    <TweetCard
-      v-for="(item, index) in getTweets"
-      :key="index"
-      :description="item?.description"
-      :attachment="item.attachment"
-      :createdOn="item.createdOn"
-      :id="item.id"
-      :userId="item.userId"
-      :imgUri="item?.imgUri"
-      :likesCount="item.likes?.length"
-      :retweetsCount="item.reposts?.length"
-      :repliesCount="item.replies?.length"
-    />
+
+    <main v-if="getTweets?.length">
+      <TweetCard
+        v-for="(item, index) in getTweets"
+        :key="index"
+        :description="item?.description"
+        :attachment="item.attachment"
+        :createdOn="item.createdOn"
+        :id="item.id"
+        :userId="item.userId"
+        :imgUri="item?.imgUri"
+        :likesCount="item.likes?.length"
+        :retweetsCount="item.reposts?.length"
+        :repliesCount="item.replies?.length"
+      />
+    </main>
 
     <!-- Loading indicator or skeleton loader -->
     <div v-if="!tweets" class="flex flex-col">
