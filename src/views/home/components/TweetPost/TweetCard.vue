@@ -1,19 +1,20 @@
 <template>
   <div
-
     class="hover:!cursor-pointer bg-transparent rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 !border-b-2 !border-gray-500"
   >
-    <div class="p-5"> 
+    <div class="p-5">
       <header-profile :id="id" :userId="userId" />
 
       <div class="body mt-2 mb-1" @click="this.$router.push('/home/' + id)">
+        
         <p
-          :key="id"
+          :key="Date.now()"
           class="mb-3 font-normal text-white text-sm my-3"
-          v-linkify="{ className: '!text-primary', target: '_blank' }"
+          v-linkify="{ className: 'text-primary', target: '_blank' }"
         >
-       
+          {{ description }}
         </p>
+        
       </div>
 
       <bottom-link
@@ -42,11 +43,11 @@ export default {
     "likesCount",
     "retweetsCount",
     "repliesCount",
-
   ],
-  mounted() {
-    
+  watch(){
+
   },
+  mounted() {},
   provide: {
     description(newVal) {
       console.log(newVal);
