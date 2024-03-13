@@ -6,7 +6,6 @@
       <header-profile :id="id" :userId="userId" />
 
       <div class="body mt-2 mb-1" @click="this.$router.push('/home/' + id)">
-        
         <p
           :key="Date.now()"
           class="mb-3 font-normal text-white text-sm my-3"
@@ -14,16 +13,29 @@
         >
           {{ description }}
         </p>
-        
       </div>
 
       <bottom-link
         :userId="userId"
         :postId="id"
+        :disable="id"         
+        v-if="type === 'replytweet'"
+        :likesCount="likesCount"
+        :repliesCount="repliesCount"                              
+        :retweetsCount="retweetsCount"
+      />
+
+      <bottom-link
+        :userId="userId"
+        :postId="id"
+        :disable="null"
+        :type="type"
+        v-if="type !== 'replytweet'"
         :likesCount="likesCount"
         :repliesCount="repliesCount"
         :retweetsCount="retweetsCount"
       />
+
     </div>
   </div>
 </template>
@@ -43,11 +55,13 @@ export default {
     "likesCount",
     "retweetsCount",
     "repliesCount",
+    "type",
+    "disable",
   ],
-  watch(){
-
+  watch() {},
+  mounted() {
+    console.log(this.type);
   },
-  mounted() {},
   provide: {
     description(newVal) {
       console.log(newVal);

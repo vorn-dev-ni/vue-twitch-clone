@@ -45,24 +45,25 @@ export const useUserStore = defineStore("user", {
           return;
         }
       });
+
+      const uid = this.users?.length + 1
       this.isAuth = true;
-      const uid = Date.now() + Math.random() * 10;
       this.currentUserId = uid;
+      console.log(this.currentUserId)
       this.users.push({
         ...user,
         id: uid,
         createdOn: dayjs(Date.now()).format("DD-MM-YYYY"),
         followings: [],
         followers: [],
-        imgUri: '',
+        imgUri: "",
         location: null,
         bio: null,
       });
     },
     signout() {
-      this.isAuth = false;
       this.currentUserId = "";
-      console.log("error");
+      this.isAuth = false;
     },
     resetAll() {
       console.log(this.isAuth);
@@ -150,6 +151,8 @@ export const useUserStore = defineStore("user", {
       this.currentUserId = this.users.find(
         (auth) => auth.email === user.email
       )?.id;
+
+      console.log(this.currentUserId)
 
       return (this.isAuth = true);
     },

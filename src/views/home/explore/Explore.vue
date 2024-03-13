@@ -12,11 +12,13 @@
 
     <div v-for="(user, index) in users" :key="index">
       <card-panel
-        v-if="user?.id !== getCurrentUserId"
+
         :key="index"
         class="card !rounded-none !bg-none space-y-5 gap-5 !outline-none !border-0 w-full py-5 hover:!bg-gray-700 hover:!rounded-t-none !overflow-hidden my-0"
       >
-        <template #title>
+        <template #title         v-if="user?.id?.toString() !== getCurrentUserId.toString()">
+   
+         
           <div
             class="card flex gap-2 text-white w-full justify-between hover:!cursor-pointer"
           >
@@ -77,7 +79,7 @@ export default {
   },
   mounted() {
     this.users = this.fetchUsers();
-    console.log(this.users);
+    console.log(this.getCurrentUserId);
   },
   computed: {
     ...mapState(useUserStore, ["getCurrentUserId"]),

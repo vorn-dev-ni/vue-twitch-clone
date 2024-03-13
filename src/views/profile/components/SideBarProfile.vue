@@ -32,10 +32,13 @@
         >
           <template #title>
             <div
-              @click="this.$router.push('/user/' + user?.id)"
+           
               class="card flex gap-2 text-white w-full justify-between hover:!cursor-pointer"
             >
-              <div class="text-sm flex items-center gap-3">
+              <div class="text-sm flex items-center gap-3"
+              @click="this.$router.push('/user/' + user?.id)"
+              
+              >
                 <div>
                   <img
                     class="w-10 h-10 rounded-full"

@@ -1,6 +1,7 @@
 <template>
   <div class="flex text-white">
     <div class="w-full">
+ 
       <div class="flex items-center">
         <div
           @click="this.$router.push('/home/' + postId)"
@@ -74,7 +75,7 @@
         </div>
 
         <div
-          v-if="getCurrentUserId === userId"
+          v-if="!disable && getCurrentUserId === userId "
           @click="onDelete(postId)"
           class="flex-1 flex items-center text-gray-800 dark:text-white text-xs text-white hover:text-primary dark:hover:text-primary transition duration-350 ease-in-out"
         >
@@ -99,6 +100,11 @@ import { useTweetStore } from "@/store/tweet";
 import { useUserStore } from "@/store/user";
 import { mapActions, mapState } from "pinia";
 export default {
+  data() {
+    return {
+      checkPath: "",
+    };
+  },
   methods: {
     ...mapActions(useTweetStore, [
       "updateLike",
@@ -109,6 +115,8 @@ export default {
     ]),
 
     onDelete(id) {
+      console.log(this.type);
+
       if (this.type === "reply") {
         this.deleteReplies(id);
       } else {
@@ -119,14 +127,19 @@ export default {
   computed: {
     ...mapState(useUserStore, ["getCurrentUserId"]),
   },
-  mounted() {},
+  mounted() {
+    console.log(this.disable)
+  
+  
+  },
   watch: {
     postId(newVal) {
       return newVal;
     },
   },
   inject: ["deleteReplies", "type"],
-  props: ["postId", "likesCount", "repliesCount", "retweetsCount", "userId"],
+  props: ["postId", "likesCount", "repliesCount", "retweetsCount", "userId","disable"],
+
 };
 </script>
 

@@ -17,12 +17,13 @@
       :likesCount="tweet?.likes?.length"
       :retweetsCount="tweet?.reposts?.length"
       :repliesCount="tweet?.replies?.length"
+     :type="'replytweet'"
     />
     <tweet-bar
       :postId="tweet?.id"
       :placeholder="'Post Your Reply'"
       :buttonText="'Reply'"
-      type="'reply'"
+      :type="'reply'"
     />
 
     <Replies :postId="id" :tweet="tweet" />
