@@ -15,7 +15,7 @@
           >
             <!-- Modal content -->
             <div
-              class="relative bg-darkprimary rounded-lg shadow dark:bg-gray-700 p-10 "
+              class="relative bg-darkprimary rounded-lg shadow dark:bg-gray-700 p-10"
             >
               <button
                 @click="handleOpenModal"
@@ -134,6 +134,7 @@
                       >
                         <VueDatepickerUi
                           v-bind="field"
+                          :lang="'en'"
                           input-class="!bg-transparent !w-[100%] !border-2 !border-gray-600"
                           class="!bg-transparent"
                           :placeholder="'Select Date'"
@@ -230,7 +231,6 @@ import appleIcon from "@/assets/apple.png";
 import googleIcon from "@/assets/google.png";
 import imgUrl from "@/assets/x-social-media-white-icon.png";
 import { userSchema } from "@/schema";
-
 
 export default {
   components: {

@@ -46,13 +46,14 @@ export const useUserStore = defineStore("user", {
         }
       });
 
-      const uid = this.users?.length + 1
+      const uid = this.users?.length + 1;
       this.isAuth = true;
       this.currentUserId = uid;
-      console.log(this.currentUserId)
+      console.log(this.currentUserId);
       this.users.push({
         ...user,
         id: uid,
+        dob: dayjs(user?.dob).format("DD-MM-YYYY"),
         createdOn: dayjs(Date.now()).format("DD-MM-YYYY"),
         followings: [],
         followers: [],
@@ -109,8 +110,8 @@ export const useUserStore = defineStore("user", {
         if (user.id?.toString() === params?.userId) {
           user.name = params.name;
           user.bio = params.bio;
-          user.dob = dayjs(params?.dob).format("DD-MM-YYYY"),
-          user.imgUri = params.imgUri;
+          (user.dob = dayjs(params?.dob).format("DD-MM-YYYY")),
+            (user.imgUri = params.imgUri);
           user.location = params.location;
         }
         return user;
@@ -152,7 +153,7 @@ export const useUserStore = defineStore("user", {
         (auth) => auth.email === user.email
       )?.id;
 
-      console.log(this.currentUserId)
+      console.log(this.currentUserId);
 
       return (this.isAuth = true);
     },

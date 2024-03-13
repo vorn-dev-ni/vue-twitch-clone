@@ -228,6 +228,7 @@
                           >
                             <VueDatepickerUi
                               v-bind="field"
+                              :lang="'en'"
                               input-class="!bg-transparent !w-[100%] !border-2 !border-gray-600"
                               class="!bg-transparent"
                               :placeholder="profileInfo?.dob || 'Select Date'"
