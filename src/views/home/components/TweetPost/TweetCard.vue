@@ -11,7 +11,7 @@
           class="mb-3 font-normal text-white text-sm my-3"
           v-linkify="{ className: '!text-primary', target: '_blank' }"
         >
-          {{ description ?? "loading" }}
+       
         </p>
       </div>
 
